@@ -4,15 +4,12 @@ import { Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import { forkJoin as staticForkJoin } from 'rxjs/observable/forkJoin';
-//import 'rxjs/add/observable/forkJoin';
-
 
 import { HourA } from './HourA';
 import { Hour378 } from './Hour378';
 import { Hour160 } from './Hour160';
 import { Hour157 } from './Hour157';
 import { Weather } from './Weather';
-import { Tesla } from './Tesla';
 
 import { Config } from '../config/config.ts';
 
@@ -65,11 +62,6 @@ export class InfoService {
             .map(this.extractData_weather)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
-    public getTesla(): Observable<Tesla[]> {
-        return this.http.get(this.testlaUrl)
-            .map(this.extractData_stock)
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    } 
 
     private extractData(res: Response) {
         let body = res.json();

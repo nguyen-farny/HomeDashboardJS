@@ -9,7 +9,6 @@ import { Hour160 } from './Hour160';
 import { Hour157 } from './Hour157';
 import { Weather } from './Weather';
 import { Condition } from './Condition';
-import { Tesla } from './Tesla';
 
 
 import { InfoService } from './getInfo.service';
@@ -34,7 +33,6 @@ export class AppComponent implements OnInit {
 
     weather: Weather;
     condition: Condition; 
-    tesla: Tesla[]; 
 
     constructor(private infoService: InfoService, private applicationRef: ApplicationRef) {
     }
