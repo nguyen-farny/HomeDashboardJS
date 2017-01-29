@@ -100,12 +100,11 @@ export class AppComponent implements OnInit {
         timer6s.subscribe(() => this.get378Hour());
         timer6s.subscribe(() => this.get160Hour());
         timer6s.subscribe(() => this.get157Hour());
-        timer6s.subscribe(() => this.getWeather());
+
+        let timer2h = Observable.timer(0, 1000 * 3600 * 2);
+        timer2h.subscribe(() => this.getWeather());
 
         let timer1s = Observable.timer(0, 1000);
         timer1s.subscribe(() => this.getHour());
-
-        let timer1m = Observable.timer(0, 1000*60);
-        timer1m.subscribe(() => this.getTesla());
     }
 }
