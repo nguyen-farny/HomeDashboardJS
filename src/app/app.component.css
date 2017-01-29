@@ -1,0 +1,45 @@
+.content {
+    width: 600px;
+    height: 1024px;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+.hour {
+    font-size: 56px;
+}
+
+
+.bigHour {
+    margin-top: 15px;
+    font-size: 75px;
+}
+
+.longHour {
+    margin-top: 10px;
+    font-size: 40px;
+}
+
+.title {
+    margin-top: 5px;
+}
+
+.litleTitle {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.mediumTitle {
+    margin-top: 5px;
+    font-size: 35px;
+}
+
+.tallTitle {
+    margin-top: 5px;
+    font-size: 80px;
+}
+
+div
+{ display: inline-block;}

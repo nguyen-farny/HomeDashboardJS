@@ -1,0 +1,126 @@
+﻿<div class="content">
+    <div class="tile-wide bg-grayDark">
+        <div class="title">
+            Rer A: Paris<br />
+            <div class="longHour fg-amber my-textarea" *ngFor="let hA of hoursA; let i = index;">
+                <span *ngIf="IfHour(hA.message)== false && hA.message=='Train sans arrêt'">
+                    SA -
+                </span>
+                <span *ngIf="IfHour(hA.message)== false && hA.message=='A l\'approche'">
+                    App -
+                </span>
+                <span *ngIf="IfHour(hA.message)== false && hA.message=='A l\'arret'">
+                    Arr
+                </span>
+                <span *ngIf="IfHour(hA.message)== true">
+                    {{ hA.message }} -
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="tile bg-grayDark">
+        <div class="litleTitle">
+            Bus 378: Asnières<br />
+            <div class="hour fg-green" *ngFor="let h378 of hours378">
+                <span *ngIf="IfHour(h378.message)== false && h378.message=='Train sans arrêt'">
+                    SA
+                </span>
+                <span *ngIf="IfHour(h378.message)== false && h378.message=='A l\'approche'">
+                    App
+                </span>
+                <span *ngIf="IfHour(h378.message)== false && h378.message=='A l\'arret'">
+                    Arr
+                </span>
+                <span *ngIf="IfHour(h378.message)== true">
+                    {{ h378.message }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="tile bg-grayDark">
+        <div class="litleTitle">
+            Bus 160: Pt Sèvres
+            <div class="hour fg-green" *ngFor="let h160 of hours160">
+                <span *ngIf="IfHour(h160.message)== false && h160.message=='Train sans arrêt'">
+                    SA
+                </span>
+                <span *ngIf="IfHour(h160.message)== false && h160.message=='A l\'approche'">
+                    App
+                </span>
+                <span *ngIf="IfHour(h160.message)== false && h160.message=='A l\'arret'">
+                    Arr
+                </span>
+                <span *ngIf="IfHour(h160.message)== true">
+                    {{ h160.message }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="tile bg-grayDark">
+        <div class="litleTitle">
+            Bus 157: Pt Neuilly
+            <div class="hour fg-green" *ngFor="let h157 of hours157">
+                <span *ngIf="IfHour(h157.message)== false && h157.message=='Train sans arrêt'">
+                    SA
+                </span>
+                <span *ngIf="IfHour(h157.message)== false && h157.message=='A l\'approche'">
+                    App
+                </span>
+                <span *ngIf="IfHour(h157.message)== false && h157.message=='A l\'arret'">
+                    Arr
+                </span>
+                <span *ngIf="IfHour(h157.message)== true">
+                    {{ h157.message }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="tile bg-grayDark">
+        <div class="litleTitle">
+            <div class="hour">
+                <div class="tallTitle">
+                    <span *ngIf="weather">
+                        {{ weather.temp_c}}°C
+                    </span>
+                </div>
+                <div class="mediumTitle">
+                    <span *ngIf="weather">
+                        = {{ weather.feelslike_c }}°C
+                    </span>
+                </div>
+                <div class="mediumTitle">
+                    <span *ngIf="weather && weather.humidity < 95">
+                        <img src="../img/sunny.ico" style="width:30px;height:30px;">
+                    </span>
+                    <span *ngIf="weather && weather.humidity >= 95">
+                        <img src="../img/rain-cloud-icon-5.png" style="width:30px;height:30px;">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tile bg-grayDark">
+        <div class="litleTitle">
+            France
+            <div class="bigHour fg-lightBlue">
+                {{ hourFr }}
+            </div>
+        </div>
+    </div>
+    <div class="tile bg-grayDark">
+        <div class="litleTitle">
+            Viet Nam
+            <div class="bigHour fg-lightBlue">
+                {{ hourVn }}
+            </div>
+        </div>
+    </div>
+    <div class="tile bg-grayDark">
+        <div class="litleTitle">
+            Californie
+            <div class="bigHour fg-lightBlue">
+                {{ hourCali }}
+            </div>
+        </div>
+    </div>
+    </div>
