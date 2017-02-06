@@ -4,5 +4,6 @@ export class Weather {
     feelslike_c: number; 
     temp_c: number;
     condition: Condition;
-    humidity: number; 
+    precip_mm: number;
+    is_day: number;
 }

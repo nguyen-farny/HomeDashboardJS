@@ -89,10 +89,13 @@
                     </span>
                 </div>
                 <div class="mediumTitle">
-                    <span *ngIf="weather && weather.humidity < 95">
+                    <span *ngIf="weather && weather.precip_mm == 0 && weather.is_day == 1">
                         <img src="../img/sunny.ico" style="width:30px;height:30px;">
                     </span>
-                    <span *ngIf="weather && weather.humidity >= 95">
+                    <span *ngIf="weather && weather.precip_mm == 0 && weather.is_day == 0">
+                        <img src="../img/moon.png" style="width:30px;height:30px;">
+                    </span>
+                    <span *ngIf="weather && weather.precip_mm > 0">
                         <img src="../img/rainny.png" style="width:30px;height:30px;">
                     </span>
                 </div>
