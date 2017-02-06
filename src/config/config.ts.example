@@ -7,7 +7,7 @@
         data = {
             ratpUrl: 'https://api-ratp.pierre-grimaud.fr/v2/',
             rerAUrl: 'rers/A/stations/22?destination=2', 
-            bus378Url: 'bus/378/stations/nanterre-ville-rer?destination=les+courtilles+metro', 
+            bus378Url: 'bus/378/stations/nanterre-ville-rer-faidherbe?destination=les+courtilles+metro', 
             bus160Url: 'bus/160/stations/nanterre-ville+rer?destination=pont+de+sevres', 
             bus157Url: 'bus/157/stations/ville-faidherbe-rer?destination=pont+de+neuilly', 
             weatherUrl: 'http://api.apixu.com/v1/current.json?key=KEY&q=Paris', 
