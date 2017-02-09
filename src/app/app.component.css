@@ -7,10 +7,14 @@
     text-align: center;
 }
 
+.stockValue {
+    margin-top: 15px;
+    font-size: 50px;
+}
+
 .hour {
     font-size: 56px;
 }
-
 
 .bigHour {
     margin-top: 15px;

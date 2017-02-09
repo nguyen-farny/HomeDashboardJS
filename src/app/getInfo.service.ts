@@ -10,6 +10,8 @@ import { Hour378 } from './Hour378';
 import { Hour160 } from './Hour160';
 import { Hour157 } from './Hour157';
 import { Weather } from './Weather';
+import { Stock } from './Stock';
+
 
 import { Config } from '../config/config.ts';
 
@@ -23,6 +25,7 @@ export class InfoService {
     private bus157Url = Config.getEnvironmentVariable("bus157Url"); 
     private weatherUrl = Config.getEnvironmentVariable("weatherUrl");
     private testlaUrl = Config.getEnvironmentVariable("testlaUrl");  
+    private appleUrl = Config.getEnvironmentVariable("appleUrl");  
 
     constructor(private http: Http) { }
 
@@ -63,17 +66,23 @@ export class InfoService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    private extractData(res: Response) {
+    public getApple(): Observable<Stock> {
+        return this.http.get(this.appleUrl)
+            .map(this.extractData_stock)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    public extractData(res: Response) {
         let body = res.json();
         return body.response.schedules || {};
     }
 
-    private extractData_weather(res: Response) {
+    public extractData_weather(res: Response) {
         let body = res.json();
         return body.current || {};
     }
 
-    private extractData_stock(res: Response) {
+    public extractData_stock(res: Response) {
         let body = JSON.parse(res.text().substr(3))[0];
         return body || {}; 
     }

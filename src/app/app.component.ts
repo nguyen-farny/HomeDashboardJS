@@ -9,6 +9,7 @@ import { Hour160 } from './Hour160';
 import { Hour157 } from './Hour157';
 import { Weather } from './Weather';
 import { Condition } from './Condition';
+import { Stock } from './Stock';
 
 
 import { InfoService } from './getInfo.service';
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
 
     weather: Weather;
     condition: Condition; 
+    stock: Stock;
 
     constructor(private infoService: InfoService, private applicationRef: ApplicationRef) {
     }
@@ -87,9 +89,18 @@ export class AppComponent implements OnInit {
         this.hourVn = moment().utcOffset('+0700').format("HH:mm");
         this.hourCali = moment().utcOffset('-0800').format("HH:mm");
     }
-
+    
     IfHour(message: string): boolean {
         return message.length < 6; 
+    }
+
+    getApple() {
+        this.infoService.getApple()
+            .subscribe(
+            stock => this.stock = stock,
+            error => this.errorMessage = <any>error,
+            () => this.applicationRef.tick()
+            );
     }
 
     ngOnInit(): void {
@@ -98,6 +109,8 @@ export class AppComponent implements OnInit {
         timer6s.subscribe(() => this.get378Hour());
         timer6s.subscribe(() => this.get160Hour());
         timer6s.subscribe(() => this.get157Hour());
+        timer6s.subscribe(() => this.getApple());
+
 
         let timer2h = Observable.timer(0, 1000 * 3600 * 2);
         timer2h.subscribe(() => this.getWeather());
