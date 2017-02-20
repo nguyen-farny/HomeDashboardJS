@@ -126,14 +126,17 @@
             </div>
         </div>
     </div>
-    <div class="tile bg-grayDark">
-        <div class="litleTitle">
-            Apple
-            <div class="stockValue fg-lightBlue">
-                <span *ngIf="stock">
-                    {{ stock.l }}
-                </span>
+
+    <article *ngIf="stocks">
+        <div class="tile bg-grayDark" *ngFor="let stock of stocks.stocks;">
+            <div class="litleTitle">
+                <label>{{ stock.name }}</label>
+                <div class="stockValue fg-lightBlue">
+                    <span>
+                        {{ stock.value }}
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
+    </article>
 </div>

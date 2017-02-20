@@ -10,7 +10,7 @@ import { Hour378 } from './Hour378';
 import { Hour160 } from './Hour160';
 import { Hour157 } from './Hour157';
 import { Weather } from './Weather';
-import { Stock } from './Stock';
+import { Stock, StockCollection, StockAPI } from './Stock';
 
 
 import { Config } from '../config/config.ts';
@@ -25,7 +25,7 @@ export class InfoService {
     private bus157Url = Config.getEnvironmentVariable("bus157Url"); 
     private weatherUrl = Config.getEnvironmentVariable("weatherUrl");
     private testlaUrl = Config.getEnvironmentVariable("testlaUrl");  
-    private appleUrl = Config.getEnvironmentVariable("appleUrl");  
+    private stockUrls = Config.getEnvironmentVariable("stockUrls");  
 
     constructor(private http: Http) { }
 
@@ -66,11 +66,33 @@ export class InfoService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public getApple(): Observable<Stock> {
-        return this.http.get(this.appleUrl)
-            .map(this.extractData_stock)
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    //public getApple(): Observable<Stock> {
+    //    return this.http.get(this.appleUrl)
+    //        .map(this.extractData_stock)
+    //        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    //}
+
+    public compare(a: Stock, b: Stock): number {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
     }
+
+    public getStock(): Observable<StockCollection> {
+        let result = new StockCollection();
+        result.stocks = new Array<Stock>();
+
+        for (var i = 0; i < this.stockUrls.length; i++) {
+            this.http.get(this.stockUrls[i])
+                .map(this.extractData_stock)
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+                .subscribe(x => { result.stocks.push(x); });
+        }
+        return Observable.create(obs => { result.stocks = result.stocks.sort(this.compare); obs.next(result); obs.complete(); });
+    }
+
 
     public extractData(res: Response) {
         let body = res.json();
@@ -84,7 +106,9 @@ export class InfoService {
 
     public extractData_stock(res: Response) {
         let body = JSON.parse(res.text().substr(3))[0];
-        return body || {}; 
+        let s = new Stock();
+        s.name = body.t || "";
+        s.value = body.l || "";
+        return s; 
     }
-
 }
