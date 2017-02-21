@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationRef } from '@angular/core/src/application_ref';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 import { Observable } from 'rxjs/Rx';
 import { HourA } from './HourA';
@@ -10,6 +10,7 @@ import { Hour157 } from './Hour157';
 import { Weather } from './Weather';
 import { Condition } from './Condition';
 import { StockCollection } from './Stock';
+import * as Time from './Time';
 
 import { InfoService } from './getInfo.service';
 import { Config } from '../config/config.ts';
@@ -29,15 +30,10 @@ export class AppComponent implements OnInit {
     hours160: Hour160[];
     hours157: Hour157[];
 
-    hourFr: string;
-    hourVn: string;
-    hourCali: string;
-
+    times: Time.TimeCollection; 
     weather: Weather;
     condition: Condition; 
     stocks: StockCollection;
-    stockNb = this.stockUrls.length;
-    index: number; 
 
     constructor(private infoService: InfoService, private applicationRef: ApplicationRef) {
     }
@@ -88,9 +84,13 @@ export class AppComponent implements OnInit {
     }
 
     getHour() {
-        this.hourFr = moment().format("HH:mm");
-        this.hourVn = moment().utcOffset('+0700').format("HH:mm");
-        this.hourCali = moment().utcOffset('-0800').format("HH:mm");
+        this.times = new Time.TimeCollection();
+        this.times.times = new Array<Time.Time>();
+
+        var timezones = Config.getEnvironmentVariable("timezones");
+        for (let timezone of timezones) {
+            this.times.times.push(new Time.Time(timezone.name, moment().tz(timezone.timeZone).format("HH:mm")));
+        }
     }
     
     IfHour(message: string): boolean {
@@ -114,8 +114,6 @@ export class AppComponent implements OnInit {
                 () => this.applicationRef.tick()
                 );
     }
-
-    //                stocks => this.stocks[this.index] = stock, 
 
     ngOnInit(): void {
         let timer6s = Observable.timer(0, 1000 * 6);

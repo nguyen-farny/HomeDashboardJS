@@ -102,31 +102,16 @@
             </div>
         </div>
     </div>
-    <div class="tile bg-grayDark">
-        <div class="litleTitle">
-            France
-            <div class="bigHour fg-lightBlue">
-                {{ hourFr }}
+    <article *ngIf="times">
+        <div class="tile bg-grayDark" *ngFor="let t of times.times">
+            <div class="litleTitle">
+                <label>{{ t.country }}</label>
+                <div class="bigHour fg-lightBlue">
+                    {{ t.value }}
+                </div>
             </div>
         </div>
-    </div>
-    <div class="tile bg-grayDark">
-        <div class="litleTitle">
-            Viet Nam
-            <div class="bigHour fg-lightBlue">
-                {{ hourVn }}
-            </div>
-        </div>
-    </div>
-    <div class="tile bg-grayDark">
-        <div class="litleTitle">
-            Californie
-            <div class="bigHour fg-lightBlue">
-                {{ hourCali }}
-            </div>
-        </div>
-    </div>
-
+    </article>
     <article *ngIf="stocks">
         <div class="tile bg-grayDark" *ngFor="let stock of stocks.stocks;">
             <div class="litleTitle">
