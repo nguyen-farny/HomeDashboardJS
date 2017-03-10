@@ -6,4 +6,7 @@ export class Weather {
     condition: Condition;
     precip_mm: number;
     is_day: number;
+    mintemp_c : number; 
+    maxtemp_c: number; 
+    totalprecip_mm: number;
 }

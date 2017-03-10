@@ -1,23 +1,26 @@
 ﻿<div class="content">
-     <div *ngIf="vehicles">        
+     <div *ngIf="vehicles && IsDay()">        
         <div *ngFor="let vehicle of vehicles.vehicles;">
             <div class="tile bg-grayDark">
                 <label class="litleTitle">{{ vehicle[0].destination.slice(0, 16) }}</label>
-                <div  class="stockValue fg-lightBlue">
+                <div  class="stockValue fg-lime">
                     <div *ngFor="let v of vehicle; let i = index;">
-                        <span *ngIf="i < 2 && IfHour(v.message)== false && v.message=='Train à quai'">
+                        <span *ngIf="i < 2 && IfHasVehicle(v.message)== false && v.message=='Train à quai'">
                             A quai
                         </span>
-                        <span *ngIf="i < 2 && IfHour(v.message)== false && v.message=='Train sans arrêt'">
+                        <span *ngIf="i < 2 && IfHasVehicle(v.message)== false && v.message=='Train sans arrêt'">
                             SA
                         </span>
-                        <span *ngIf="i < 2 && IfHour(v.message)== false && v.message=='Train à l\'approche'">
+                        <span *ngIf="i < 2 && IfHasVehicle(v.message)== false && v.message=='Train à l\'approche'">
                             App
                         </span>
-                        <span *ngIf="i < 2 && IfHour(v.message)== false && v.message=='A l\'arret'">
-                            A arret     
+                        <span *ngIf="i < 2 && IfHasVehicle(v.message)== false && v.message=='A l\'approche'">
+                            App
                         </span>
-                        <span *ngIf="i < 2 && IfHour(v.message)== true">
+                        <span *ngIf="i < 2 && IfHasVehicle(v.message)== false && v.message=='A l\'arret'">
+                            A l'arret     
+                        </span>
+                        <span *ngIf="i < 2 && IfHasVehicle(v.message)== true">
                             {{ v.message }}
                         </span>
                     </div>
@@ -27,28 +30,30 @@
     </div>
      <div class="tile bg-grayDark">
         <div class="litleTitle">
-            <div class="hour">
-                <div class="tallTitle">
-                    <span *ngIf="weather">
-                        {{ weather.temp_c}}°C
-                    </span>
-                </div>
-                <div class="mediumTitle">
-                    <span *ngIf="weather">
-                        = {{ weather.feelslike_c }}°C
-                    </span>
-                </div>
-                <div class="mediumTitle">
-                    <span *ngIf="weather && weather.precip_mm == 0 && weather.is_day == 1">
-                        <img src="../img/sunny.ico" style="width:30px;height:30px;">
-                    </span>
-                    <span *ngIf="weather && weather.precip_mm == 0 && weather.is_day == 0">
-                        <img src="../img/moon.png" style="width:30px;height:30px;">
-                    </span>
-                    <span *ngIf="weather && weather.precip_mm > 0">
-                        <img src="../img/rainny.png" style="width:30px;height:30px;">
-                    </span>
-                </div>
+            <div class="">
+                <span *ngIf="weatherToday">
+                        <span class="degreeToday">{{ weatherToday.temp_c}}°C</span>
+                </span>
+                <span *ngIf="weatherToday && weatherToday.precip_mm == 0 && weatherToday.is_day == 1">
+                    <img src="../img/sunny.ico" style="width:30px;height:30px;">
+                </span>
+                <span *ngIf="weatherToday && weatherToday.precip_mm == 0 && weatherToday.is_day == 0">
+                    <img src="../img/moon.png" style="width:30px;height:30px;">
+                </span>
+                <span *ngIf="weatherToday && weatherToday.precip_mm > 0">
+                    <img src="../img/rainny.png" style="width:30px;height:30px;">
+                </span>
+                <br/>
+                <br/>
+                <span *ngIf="weatherTomorrow && IsDay()">Dem: 
+                        <span *ngIf="weatherTomorrow && weatherTomorrow.totalprecip_mm > 0">
+                            <img src="../img/rainny.png" style="width:30px;height:30px;">
+                        </span>
+                        <span *ngIf="weatherTomorrow && weatherTomorrow.totalprecip_mm == 0">
+                            <img src="../img/sunny.ico" style="width:30px;height:30px;">
+                        </span>
+                        <label class="degree">{{ weatherTomorrow.mintemp_c}} - {{ weatherTomorrow.maxtemp_c}}°C</label>
+                </span>
             </div>
         </div>
     </div>       
