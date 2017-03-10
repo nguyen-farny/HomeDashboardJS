@@ -10,6 +10,7 @@ import { Hour157 } from './Hour157';
 import { Weather } from './Weather';
 import { Condition } from './Condition';
 import { StockCollection } from './Stock';
+import { VehicleCollection } from './Vehicle';
 import * as Time from './Time';
 
 import { InfoService } from './getInfo.service';
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
     weather: Weather;
     condition: Condition; 
     stocks: StockCollection;
+    vehicles: VehicleCollection; 
 
     constructor(private infoService: InfoService, private applicationRef: ApplicationRef) {
     }
@@ -115,6 +117,15 @@ export class AppComponent implements OnInit {
                 );
     }
 
+    getVehicle() {
+        this.infoService.getVehicle()
+            .subscribe(
+            vehicles => this.vehicles = vehicles,
+            error => this.errorMessage = <any>error,
+            () => this.applicationRef.tick()
+            );
+    }
+
     ngOnInit(): void {
         let timer6s = Observable.timer(0, 1000 * 6);
         timer6s.subscribe(() => this.getRerAHour());
@@ -123,7 +134,7 @@ export class AppComponent implements OnInit {
         timer6s.subscribe(() => this.get157Hour());
 
         Observable.timer(0, 1000 * 30).subscribe(() => this.getStock());
-
+        Observable.timer(0, 1000 * 60).subscribe(() => this.getVehicle());
 
         let timer2h = Observable.timer(0, 1000 * 3600 * 2);
         timer2h.subscribe(() => this.getWeather());
